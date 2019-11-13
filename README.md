@@ -4,8 +4,6 @@ LIRI is a language interpretation and recognition interface that will search Spo
 
 ## Getting Started
 
-### Installing
-
 ### Instructions
 
 #### LIRI uses the following commands:
