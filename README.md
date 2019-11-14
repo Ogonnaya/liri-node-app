@@ -16,11 +16,44 @@ LIRI is a language interpretation and recognition interface that will search Spo
 #### What Each Command Should Do
 
 ```
-'node liri.js concert-this <artist/band name here>' will search the Bands in Town Artist Events API for an artist or band.  It will return the following information.
-* Name of the venue
-* Venue location
-* Date of the Event (use moment to format this as "MM/DD/YYYY")
+node liri.js concert-this <artist/band name here>
 ```
+
+This will search the Bands in Town Artist Events API for an artist or band. It will return the following information.
+
+- Name of the venue
+- Venue location
+- Date of the Event (use moment to format this as "MM/DD/YYYY")
+
+```
+node liri.js spotify-this-song <song name here>
+```
+
+This shows the following information about the song you provided.
+
+- Artist(s)
+- The song's name
+- A preview link of the song from Spotify
+- The album that the song is from
+
+If no song is provided then the song will default to "The Sign" by Ace of Base.
+
+```
+node liri.js movie-this <movie name here>
+```
+
+This will output the following information to your terminal/bash window:
+
+- Title of the movie.
+- Year the movie came out.
+- IMDB Rating of the movie.
+- Rotten Tomatoes Rating of the movie.
+- Country where the movie was produced.
+- Language of the movie.
+- Plot of the movie.
+- Actors in the movie.
+
+If no movie is provided, the output wil default to the movie 'Mr. Nobody.'
 
 ## Built With
 
@@ -41,5 +74,3 @@ To retrieve the data that will power this app, you'll need to send requests usin
 ## Author
 
 - **[Ogonnaya Oshagbemi](https://github.com/PurpleBooth)**
-
-## Acknowledgements
