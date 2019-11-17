@@ -64,6 +64,10 @@ Using the `fs` Node package, LIRI will take the text inside of random.txt and th
 - It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
 - Edit the text in random.txt to test out the feature for movie-this and concert-this.
 
+#### LIRI Bot Demo
+
+[LIRI Bot Demo](https://github.com/Ogonnaya/liri-node-app/blob/master/liri-bot-demo.mov?raw=true)
+
 ## Built With
 
 - Node.js
