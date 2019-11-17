@@ -88,4 +88,4 @@ To retrieve the data that will power this app, you'll need to send requests usin
 
 ## Author
 
-- **[Ogonnaya Oshagbemi](https://github.com/PurpleBooth)**
+- **[Ogonnaya Oshagbemi](https://github.com/Ogonnaya)**
