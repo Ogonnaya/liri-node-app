@@ -13,38 +13,42 @@ var spotify = new Spotify(keys.spotify);
 var userCommand = process.argv[2];
 var userInput = process.argv.splice(3, process.argv.length).join(" ");
 
-// Program conditions
-switch (userCommand) {
-  case "help":
-    console.log(
-      "Please type one of these commands\n" +
-        "'node liri.js concert-this': to search your favorite artist concerts\n" +
-        "'node liri.js spotify-this-song': to search your favorite song\n" +
-        "'node liri.js movie-this': to search your favorite movie \n" +
-        "'node liri.js do-what-it-says': using command from random.txt \n"
-    );
-  case "concert-this":
-    concertThis();
-    break;
-  case "spotify-this-song":
-    spotifyThisSong();
-    break;
-  case "movie-this":
-    movieThis();
-    break;
-  case "do-what-it-says":
-    doWhatItSays();
-    break;
-  default:
-    console.log(
-      "I don't understand.  Please type 'node liri.js help' for more information"
-    );
-    break;
+// Setting up switch statements for commands
+function userQuery(userCommand, userInput) {
+  switch (userCommand) {
+    case "concert-this":
+      concertThis();
+      break;
+    case "spotify-this-song":
+      spotifyThisSong();
+      break;
+    case "movie-this":
+      movieThis();
+      break;
+    case "do-what-it-says":
+      doWhatItSays();
+      break;
+    default:
+      console.log(
+        "I don't understand.  Please type one of these commands:\n" +
+          "'node liri.js concert-this': to search your favorite artist concerts\n" +
+          "'node liri.js spotify-this-song': to search your favorite song\n" +
+          "'node liri.js movie-this': to search your favorite movie \n" +
+          "'node liri.js do-what-it-says': using command from random.txt \n"
+      );
+      break;
+  }
 }
+userQuery(userCommand, userInput);
 
 // Setting functions for user commands
+
+// concert-this
 function concertThis() {
   var artist = userInput;
+  if (!artist) {
+    artist = "Taylor Swift";
+  }
   var url =
     "https://rest.bandsintown.com/artists/" +
     artist +
@@ -53,6 +57,7 @@ function concertThis() {
   axios.get(url).then(function(response) {
     // console.log(response.data)
     for (var i = 0; i < response.data.length; i++) {
+      console.log("Artist: " + artist);
       console.log(
         "Concert Time: " +
           moment(response.data[i].datetime, "YYYY-MM-DDTHH:mm:ss").format(
@@ -73,6 +78,7 @@ function concertThis() {
   });
 }
 
+// spotify-this-song
 function spotifyThisSong() {
   var song = userInput;
   if (!song) {
@@ -98,18 +104,14 @@ function spotifyThisSong() {
   });
 }
 
+// movie-this
 function movieThis() {
   var movie = userInput;
   if (!movie) {
-    console.log("If you haven't watched 'Mr. Nobody,' then you should.");
-    console.log("It's on Netflix!");
     movie = "Mr. Nobody";
   }
   var url =
-    "http://www.omdbapi.com/?t=" +
-    movie +
-    "&y=&plot=short&apikey=" +
-    keys.omdb.id;
+    "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
   axios.get(url).then(function(response) {
     // console.log(response.data)
     console.log("--------------------------\n");
@@ -125,28 +127,22 @@ function movieThis() {
   });
 }
 
+// do-what-it-says
 function doWhatItSays() {
   fs.readFile("random.txt", "utf8", function(error, data) {
     //Return error if error occurs.
     if (error) {
       return console.log(error);
     }
+
     // Then split it by commas (to make it more readable)
     var dataArr = data.split(",");
 
-    // Each command is represented. Because of the format in the txt file, remove the quotes to run these commands.
-    if (dataArr[0] === "spotify-this-song") {
-      var songcheck = dataArr[1].slice(1, -1);
-      console.log("Song Check: " + songcheck);
-      mySpotify(songcheck);
-    } else if (dataArr[0] === "concert-this") {
-      var venueName = dataArr[1].slice(1, -1);
-      console.log("Venue Name: " + venueName);
-      myConcert(venueName);
-    } else if (dataArr[0] === "movie-this") {
-      var movieName = dataArr[1].slice(1, -1);
-      console.log("Movie Name: " + movieName);
-      myMovies(movieName);
-    }
+    //Set pararmeters for do-what-it-says
+    userCommand = dataArr[0];
+    userInput = dataArr[1];
+    userQuery(userCommand, userInput);
   });
 }
+
+
